@@ -8,9 +8,10 @@ import java.io.*;
  */
 public class Server extends Thread {
     
-    public void start() {
+    public void go() {
         
         final int PORT = 6000;
+        int count = 0;
         
         try {
         // create listener object on the server designated with port number
@@ -20,7 +21,7 @@ public class Server extends Thread {
         //keep listening indefinitely until receives 'exit' call or program terminates
         
             while(true) {
-                System.out.println("Waiting for clients...");
+                System.out.println("Server: Waiting for clients...");
                 // create object s when connection to client has been requested and successfully established. 
                 // the accept method returns a new Socket object which is bound 
                 // to the same local port and has its remote address and remote 
@@ -28,7 +29,8 @@ public class Server extends Thread {
                 // the client over this new Socket and continue to listen for 
                 // client connection requests on the original ServerSocket
                 Socket s = listener.accept();
-                
+                count++;
+                System.out.println("Server: Client number " + count +" Connected");
                 // for each client object s that is created, do the below
                 
                 // Get the socket outputstream and create writer out object
@@ -39,14 +41,17 @@ public class Server extends Thread {
                 InputStream inStream = s.getInputStream();
                 BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
                 
-                //create inline string variable to capture client out
+                //get client message
                 String clientInputLine;
                 
-                while((clientInputLine = in.readLine()) != null) {
+                if((clientInputLine = in.readLine()) != null) {
                     System.out.println(clientInputLine);
                 }
+                else 
+                    System.out.println("readline must be null");
             }
         } catch(IOException e) {
+            System.out.println("Server: Unable to establish connection on port: " + PORT);
             e.printStackTrace();
         }
     }
@@ -57,8 +62,8 @@ public class Server extends Thread {
         
         
         
-        private String[] characters = {"Ms Scarlet", "Mr. Green", "Professor Plum",
-                                       "Col. Mustand", "Mrs. White", "Ms. Peacock"};
+        private String[] characters = {"Ms Scarlet", "Col. Mustand", "Mrs. White", "Mr. Green", 
+                                         "Ms. Peacock","Professor Plum"};
         
         
         // set default state
@@ -75,8 +80,8 @@ public class Server extends Thread {
     
     public static void main(String[] args)  {
         
-        Server clueServer = new Server();
-        clueServer.start();
+        Server Server = new Server();
+        Server.go();
     }
 }
 
