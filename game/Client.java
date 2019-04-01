@@ -9,6 +9,8 @@ import java.io.*;
  */
 public class Client {
 
+	public int ClientID;
+	
     public void setupConnection() throws IOException {
 
         final int PORT = 6000;
@@ -29,7 +31,7 @@ public class Client {
             while (true) {
                 // send msg to server
                 out.println("Client: Connected");
-
+            
                 // get msg from server
                 System.out.println(in.readLine());
 
@@ -41,7 +43,7 @@ public class Client {
                     System.out.println("closing connection...");
                     break;
                 }
-
+                
                 String fromServer = in.readLine();
                 System.out.println(fromServer);
             }

@@ -30,7 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.sanityinc.jargs;
+package game;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
