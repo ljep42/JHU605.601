@@ -1,20 +1,34 @@
+/****
+*
+*
+*
+****/
+
 package game;
 
 import java.net.*;
 import java.io.*;
+import java.util.Scanner;
 
 /**
  *
  * @author Lee
  */
 public class Client {
+    
+    Logger logger;
+    final int PORT;
+    
+    public Client(int port, Logger logger) {
+        PORT = port;
+        this.logger = logger;
+    }
 
     public void setupConnection() throws IOException {
 
-        final int PORT = 6000;
         // try with resources
         try (
-                // these will auto close when we are finishing using them
+                // these will auto close when we are finished using them
                 // create socket for client (hostname, server port number)
                 Socket sock = new Socket("localhost", PORT);
                 // create out stream for client, set auto flush buffer to true
@@ -23,20 +37,17 @@ public class Client {
                 // create in stream for client
                 InputStream inStream = sock.getInputStream();
                 BufferedReader in = new BufferedReader(new InputStreamReader(inStream));) {
-
-            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-
-            while (true) {
-                // send msg to server
+                BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
                 out.println("Client: Connected");
-            
                 // get msg from server
                 System.out.println(in.readLine());
 
+            while (true) {
                 //get input from user and send to server
                 String fromUser = stdIn.readLine();
+                System.out.println(fromUser);
                 out.println(fromUser);
-
+                
                 if (fromUser.equals("Exit")) {
                     System.out.println("closing connection...");
                     break;
@@ -57,16 +68,5 @@ public class Client {
             e.printStackTrace();
             System.exit(1);
         }
-    }
-
-    public void lobbyRoom() {
-
-    }
-
-    public static void main(String[] args) throws IOException {
-
-        Client ac = new Client();
-        ac.setupConnection();
-        ac.lobbyRoom();
     }
 }
