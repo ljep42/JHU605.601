@@ -15,7 +15,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Collections;
 
 
 public class Server {
@@ -29,14 +31,19 @@ public class Server {
     long elapsedTime = 0L;
     long timeout = 2*60*1000;
     Logger logger;
+    boolean gameState = false;
+    public static ArrayList<Player> players = new ArrayList<Player>();
+    String [] characters ={"Colonel Mustard", "Mrs. White", "Mr. Green",
+                           "Mrs. Peacock", "Miss Scarlet", "Professor Plum"};
 
     public Server(int port, int maxClients, int minClients, Logger logger) {
-    
+
         PORT = port;
         maxClients = maxClients;
         minClients = minClients;
         logger = logger;
         startTime = System.currentTimeMillis();
+
         try {
             logger.Write("Starting server on port: " + PORT);
             sock = new ServerSocket(PORT);
@@ -48,15 +55,31 @@ public class Server {
 
         while(running) {
             try {
-                //elapsedTime = System.currentTimeMillis() - startTime;
+                elapsedTime = System.currentTimeMillis() - startTime;
                 Socket client = sock.accept();
                 ClientThread client_t = new ClientThread(client);
                 client_t.start();
                 clients.add(client_t);
-                //if (clients.size() >= minClients && elapsedTime < timeout) {
-                //    elapsedTime = System.currentTimeMillis() - startTime;
-                //}
-                
+                players.add(new Player(client));
+                logger.Write(Arrays.toString(characters));
+                if (clients.size() >= minClients) {
+                    if (elapsedTime < timeout) {
+                        elapsedTime = System.currentTimeMillis() - startTime;
+                    }
+
+                    if (!gameState) {
+                        System.out.println("Starting Clue-less");
+                        Collections.shuffle(players);
+
+                        for (int i=0; i < players.size(); i++) {
+                            Player player = players.get(i);
+                            player.setName(characters[i]);
+                        }
+
+                        gameState = true;
+                    }
+                }
+
                 for(Thread cli : clients) {
                     if(cli.getState() == Thread.State.TERMINATED) {
                         clients.remove(cli);
@@ -103,17 +126,17 @@ public class Server {
 
                 while(alive) {
                     String client_msg = in.readLine();
-                    
+
                     if(client_msg != null && ! client_msg.equals("")) {
                         System.out.println("Client Message: " + client_msg);
                     }
-                    
+
                     if(!running) {
                         System.out.print("Server has exited");
                         out.flush();
                         alive = false;
                     }
-                    
+
                     if(client_msg == null || client_msg.equals("")) {
                         alive =false;
                         continue;

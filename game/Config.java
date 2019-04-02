@@ -59,9 +59,6 @@ public class Config {
             /* Populate array with line from file */
             lineContent = line.trim().split("=");
             params.put(lineContent[0].trim(), lineContent[1].trim());
-            //System.out.println(line);
-            //System.out.println(Arrays.asList(params));
-
          }
          /* Close file handle */
          br.close();

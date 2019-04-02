@@ -45,7 +45,6 @@ public class Client {
             while (true) {
                 //get input from user and send to server
                 String fromUser = stdIn.readLine();
-                System.out.println(fromUser);
                 out.println(fromUser);
                 
                 if (fromUser.equals("Exit")) {
