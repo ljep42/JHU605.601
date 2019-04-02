@@ -23,17 +23,36 @@ public class Client {
                 OutputStream outStream = sock.getOutputStream();
                 PrintWriter out = new PrintWriter(outStream, true);
                 // create in stream for client
-                InputStream inStream = sock.getInputStream();
-                BufferedReader in = new BufferedReader(new InputStreamReader(inStream));) {
+                //InputStream inStream = sock.getInputStream();
+                //BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
+        		) 
+        {
+        	Socket socketConnection = new Socket("localhost", PORT);
 
+        	ObjectInputStream objectInputStream = 
+                    new ObjectInputStream(sock.getInputStream());
+        	
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 
             while (true) {
                 // send msg to server
                 out.println("Client: Connected");
             
+                Object testClass = null;
+                do 
+                {
+                	
+                	testClass = objectInputStream.readObject();
+                }while(testClass == null);
+                
+                
+                
+                //TestClass test;
+                //test = (TestClass)testClass;
+                System.out.println("Object received:");
+                System.out.println(testClass.toString());
                 // get msg from server
-                System.out.println(in.readLine());
+                //System.out.println(in.readLine());
 
                 //get input from user and send to server
                 String fromUser = stdIn.readLine();
@@ -44,8 +63,8 @@ public class Client {
                     break;
                 }
                 
-                String fromServer = in.readLine();
-                System.out.println(fromServer);
+                //String fromServer = in.readLine();
+                //System.out.println(fromServer);
             }
 
         } //catch from method
@@ -59,6 +78,12 @@ public class Client {
             e.printStackTrace();
             System.exit(1);
         }
+        
+        catch(ClassNotFoundException e)
+        {
+        	e.printStackTrace();
+        }
+        
     }
 
     public void lobbyRoom() {

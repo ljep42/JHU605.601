@@ -17,7 +17,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 public class Server {
     ServerSocket sock;
@@ -37,6 +38,9 @@ public class Server {
             try {
                 Socket client_sock = sock.accept();
                 ClientThread client = new ClientThread(client_sock);
+                TestClass test = new TestClass();
+                test.Testing = "Hello World from Test Class Testing property.";
+                client.testClass = test;
                 client.start();
                 clients.add(client);
 
@@ -62,6 +66,7 @@ public class Server {
 
 
     class ClientThread extends Thread {
+    	TestClass testClass;
         Socket client_sock;
         boolean alive = true;
 
@@ -79,15 +84,20 @@ public class Server {
             System.out.println(
                 "Accepted client connection from address: "
                 + client_sock.getInetAddress().getHostName());
-            try 
+            try
             {
                 in = new BufferedReader(
                 new InputStreamReader(client_sock.getInputStream()));
                 out = new PrintWriter(
                 new OutputStreamWriter(client_sock.getOutputStream()));
 
+                
+                OutputStream os = client_sock.getOutputStream();
+            	ObjectOutputStream oos = new ObjectOutputStream(os);
+            	oos.writeObject(this.testClass);
                 while(alive) 
                 {
+                	
 	                String client_msg = in.readLine();
 	                System.out.println("Client Message: " + client_msg);
 	
