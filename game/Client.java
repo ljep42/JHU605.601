@@ -15,12 +15,14 @@ import java.util.Scanner;
  * @author Lee
  */
 public class Client {
-    
+
     Logger logger;
     final int PORT;
-    
-    public Client(int port, Logger logger) {
+    final String ADDRESS;
+
+    public Client(String address, int port, Logger logger) {
         PORT = port;
+	ADDRESS = address;
         this.logger = logger;
     }
 
@@ -30,7 +32,7 @@ public class Client {
         try (
                 // these will auto close when we are finished using them
                 // create socket for client (hostname, server port number)
-                Socket sock = new Socket("localhost", PORT);
+                Socket sock = new Socket(ADDRESS, PORT);
                 // create out stream for client, set auto flush buffer to true
                 OutputStream outStream = sock.getOutputStream();
                 PrintWriter out = new PrintWriter(outStream, true);
@@ -46,12 +48,12 @@ public class Client {
                 //get input from user and send to server
                 String fromUser = stdIn.readLine();
                 out.println(fromUser);
-                
+
                 if (fromUser.equals("Exit")) {
                     System.out.println("closing connection...");
                     break;
                 }
-                
+
                 String fromServer = in.readLine();
                 System.out.println(fromServer);
             }
