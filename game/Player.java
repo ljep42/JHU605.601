@@ -12,47 +12,47 @@ public class Player {
     private ArrayList<Card> cards = new ArrayList<Card>();
     private UUID uuid;
     private boolean turn = false;
-    
+
     public Player(Socket client) {
         this.client = client;
         out = false;
         uuid = UUID.randomUUID();
     }
-    
+
     public void out() {
         out = true;
     }
-    
+
     public boolean inPlay() {
         return !out;
     }
-    
+
     public void setName(String name) {
         character = name;
     }
-    
+
     public String getName() {
         return character;
     }
-    
+
     public Socket getClient() {
         return client;
     }
-    
+
     public ArrayList<Card> getCards() {
         return cards;
     }
-    
+
     public void insertCard(Card card) {
         cards.add(card);
     }
-    
+
     public boolean turn() {
         return turn;
     }
-    
+
     public void setTurn(boolean turn) {
         this.turn = turn;
     }
-    
+
 }

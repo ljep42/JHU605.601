@@ -15,7 +15,7 @@ public class Logger
 {
 
    File file;
-   
+
    private String logFile;
 
    /**
@@ -41,7 +41,7 @@ public class Logger
       try {
          file = new File(logFile);
          file.createNewFile();
-         
+
          if (!file.canWrite()) {
             throw new IOException("File " + logFile + " not writable");
          }
@@ -50,7 +50,7 @@ public class Logger
          System.exit(1); /* Exit on IO exception */
       }
    }
-   
+
    public String getLogFile() {
         return logFile;
    }
