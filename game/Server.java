@@ -33,8 +33,8 @@ public class Server {
     Logger logger;
     boolean gameState = false;
     public static ArrayList<Player> players = new ArrayList<Player>();
-    String [] characters ={"Colonel Mustard", "Mrs. White", "Mr. Green",
-                           "Mrs. Peacock", "Miss Scarlet", "Professor Plum"};
+    String [] characters ={"Ms Scarlet", "Col. Mustand", "Mrs. White", "Mr. Green", 
+                                         "Ms. Peacock","Professor Plum"};
 
     public Server(int port, int maxClients, int minClients, Logger logger) {
 
