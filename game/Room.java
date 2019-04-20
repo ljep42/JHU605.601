@@ -3,35 +3,60 @@ package game;
 import java.util.ArrayList;
 
 
-public class Room {
+public class Room implements Location {
     private String name;
     private Location location;
-    private boolean passageway = false;
-    private boolean occupied;
     private ArrayList<Player> players;
+    private boolean passageway = false;
+    private boolean isEmpty;
 
     public Room(String name) {
         this.name = name;
-        occupied = false;
-        players = new ArrayList<Player>();
+        isEmpty = true;
+        players = new ArrayList<>();
     }
 
-    public void addPlayer(Player player) {
-        players.add(player);
-    }
+//    public void removePlayer(Player player) {
+//        players.remove(player);
+//    }
 
-    public void removePlayer(Player player) {
-        players.remove(player);
-    }
+//    public ArrayList<Player> getOccupants() {
+//        return players;
+//    }
+//
+//    public int getNumPlayers() {
+//        return players.size();
+//    }
+//
+//    
+//
+//    public Location getlocation() {
+//        return location;
+//    }
+//
+//    public void setlocation(Location location) {
+//        this.location = location;
+//    }
 
-    public ArrayList<Player> getOccupants() {
-        return players;
+    public void setName(String name){
+        this.name = name;
     }
-
-    public int getNumPlayers() {
-        return players.size();
+    
+    public void setPassageway(Boolean passageway){
+        this.passageway = passageway;
     }
-
+    
+    public Boolean getPassageway() {
+        return passageway;
+    }
+    
+    
+    @Override
+    public String getName() {
+        return name;
+    }
+    
+    @Override
     public boolean isEmpty() {
         if (players.size() == 0) {
             return true;
@@ -39,16 +64,31 @@ public class Room {
             return false;
         }
     }
-
-    public Location getlocation() {
-        return location;
+    
+    @Override
+    public void addPlayer(Player player) {
+        players.add(player);
     }
 
-    public void setlocation(Location location) {
-        this.location = location;
+    @Override
+    public int[] getLocation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public void setLocation(int[] loc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Player getPlayer(int[] p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Player removePlayer(Player p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }
