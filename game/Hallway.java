@@ -5,15 +5,15 @@ import java.util.ArrayList;
 
 public class Hallway implements Location {
     private String name;
-    private Location location;
+    private int[] location;
     private ArrayList<Player> players;
     private boolean passageWay = false;
     private boolean isEmpty;
     
-    public Hallway(String name, Location loc) {
+    public Hallway(String name, int[] loc) {
         this.name = name;
-        this.location = loc;
         isEmpty = true;
+        this.location = location;
         players = new ArrayList<>();
         
     }
@@ -48,12 +48,12 @@ public class Hallway implements Location {
     }
 
     @Override
-    public Player getPlayer(int[] p) {
+    public ArrayList<Player> getPlayers() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Player removePlayer(Player p) {
+    public void removePlayer(Player p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

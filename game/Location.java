@@ -54,6 +54,6 @@ public interface Location {
      * @param p
      * @return 
      */
-    public Player removePlayer(Player p);
+    public void removePlayer(Player p);
     
 }
