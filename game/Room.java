@@ -10,6 +10,7 @@ public class Room implements Location {
     private boolean passageway = false;
     private boolean isEmpty;
 
+    // constructor
     public Room(String name) {
         this.name = name;
         isEmpty = true;

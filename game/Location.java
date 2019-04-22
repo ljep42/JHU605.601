@@ -5,6 +5,8 @@
  */
 package game;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Lee
@@ -47,7 +49,7 @@ public interface Location {
      * @param p
      * @return Player
      */
-    public Player getPlayer(int[] p);
+    public ArrayList<Player> getPlayers();
     
     /**
      * 

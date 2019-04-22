@@ -10,6 +10,7 @@ public class Hallway implements Location {
     private boolean passageWay = false;
     private boolean isEmpty;
     
+    // constructor
     public Hallway(String name, int[] loc) {
         this.name = name;
         isEmpty = true;
@@ -34,42 +35,35 @@ public class Hallway implements Location {
     
     @Override
     public void addPlayer(Player p) {
-        
+        if(players.size() < 1) {
+            players.add(p);
+        }
+        else 
+            System.out.println("unable to move, space is occupied");
     }
 
     @Override
     public int[] getLocation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int[] arr = new int[2];
+        arr[0] = location[0];
+        arr[1] = location[1];
+        
+        return arr;
     }
 
     @Override
     public void setLocation(int[] loc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        loc[0] = location[0];
+        loc[1] = location[1];
     }
 
     @Override
     public ArrayList<Player> getPlayers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return players;
     }
 
     @Override
     public void removePlayer(Player p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        players.remove(p);
     }
-
-//    public void setEmpty(boolean isEmpty) {
-//        this.isEmpty = isEmpty;
-//    }
-
-//    public Location getlocation() {
-//        return location;
-//    }
-//
-//    public void setlocation(Location loc) {
-//        this.location = loc;
-//    }
-
-    
-
-    
 }
