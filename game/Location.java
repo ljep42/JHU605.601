@@ -14,27 +14,26 @@ import java.util.ArrayList;
 public interface Location {
     
     /**
-     * Gets name of player
+     * Gets name of location
      * @return String
      */
     public String getName();
     
     /**
-     * checks if area is empty
+     * checks if location is empty
      * @return True is area is empty
      */
     public boolean isEmpty();
     
     /**
-     * Adds player to room
-     * adds player to list for room
+     * Adds player to location
      * @param player 
      */
     public void addPlayer(Player p);
     
     /**
      * gets location returns array for x,y coordinates
-     * @return 
+     * @return array of int
      */
     public int[] getLocation();
     
@@ -45,14 +44,14 @@ public interface Location {
     public void setLocation(int[] loc);
     
     /**
-     * get player list in hallway or room/location
+     * get player list in location
      * @param p
      * @return Player
      */
     public ArrayList<Player> getPlayers();
     
     /**
-     * 
+     * Remove's player from location
      * @param p
      * @return 
      */
